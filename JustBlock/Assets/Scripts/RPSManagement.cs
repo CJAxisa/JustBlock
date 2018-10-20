@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-public class RPSManagement : MonoBehaviour,IPointerDownHandler, ISelectHandler
+
+public class RPSManagement : MonoBehaviour
 {
     //Variables for choice
     public bool player1Win;
@@ -19,6 +19,8 @@ public class RPSManagement : MonoBehaviour,IPointerDownHandler, ISelectHandler
     public Selectable Scissors1;
     public Selectable Scissors2;
 
+    //Timer for RPS
+    float timer;
     //Variables for the Game Start
     public bool gameStart;
     public bool rpsStart;
@@ -43,7 +45,7 @@ public class RPSManagement : MonoBehaviour,IPointerDownHandler, ISelectHandler
         reset = false;
         player1Pos = GameObject.FindGameObjectWithTag("Player1").transform.position;
         player2Pos = GameObject.FindGameObjectWithTag("Player2").transform.position;
-        
+        timer = 3;
     }
 	
 	// Update is called once per frame
@@ -52,6 +54,35 @@ public class RPSManagement : MonoBehaviour,IPointerDownHandler, ISelectHandler
         GetSelectables();
         if (rpsStart)
         {
+            if(timer>0)
+            {
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    player1Choice = "Rock";
+                }
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    player1Choice = "Paper";
+                }
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    player1Choice = "Scissors";
+                }
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    player2Choice = "Rock";
+                }
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    player2Choice = "Paper";
+                }
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    player2Choice = "Scissors";
+                }
+            }
+            
+
             SelectChoice(player1Choice, player2Choice);
         }
         
@@ -127,62 +158,5 @@ public class RPSManagement : MonoBehaviour,IPointerDownHandler, ISelectHandler
             }
         }
     }
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log("Oogaboog");
-        if(eventData.pointerPress==Rock1)
-        {
-            player1Choice = "Rock"; 
-            Debug.Log(player1Choice);
-        }
-        if (eventData.pointerPress == Rock2)
-        {
-            player2Choice = "Rock";
-        }
-        if (eventData.pointerPress == Paper1)
-        {
-            player1Choice = "Paper";
-        }
-        if (eventData.pointerPress == Paper2)
-        {
-            player2Choice = "Paper";
-        }
-        if (eventData.pointerPress == Scissors1)
-        {
-            player1Choice = "Scissors";
-        }
-        if (eventData.pointerPress == Scissors2)
-        {
-            player2Choice = "Scissors";
-        }
-    }
-
-    public void OnSelect(BaseEventData eventData)
-    {
-        if (eventData.selectedObject == Rock1)
-        {
-            
-            player1Choice = "Rock";
-        }
-        if (eventData.selectedObject == Rock2)
-        {
-            player2Choice = "Rock";
-        }
-        if (eventData.selectedObject == Paper1)
-        {
-            player1Choice = "Paper";
-        }
-        if (eventData.selectedObject == Paper2)
-        {
-            player2Choice = "Paper";
-        }
-        if (eventData.selectedObject == Scissors1)
-        {
-            player1Choice = "Scissors";
-        }
-        if (eventData.selectedObject == Scissors2)
-        {
-            player2Choice = "Scissors";
-        }
-    }
+    
 }
