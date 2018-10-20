@@ -6,11 +6,23 @@ public class InputManager : MonoBehaviour {
     public bool playerOne;
     public float maxSpeed;
     public float maxAccel;
+    public float maxJumpSpeed;
+    public float maxJumpAccel;
+
+    public float gravity;
 
     public Vector2 acceleration;
     public Vector2 velocity;
     public Vector2 position;
+    public Vector2 raycastPos;
+    public int numJumps;
+    public int jumpsLeft;
+    public int jumpFrames;
+    public int jumpFramesLeft;
 
+    public bool facingLeft;
+    public bool isJump;
+    public bool isGrounded;
     //control key strings
     private string up;
     private string left;
@@ -27,6 +39,7 @@ public class InputManager : MonoBehaviour {
             left = "a";
             right = "d";
             down = "s";
+            facingLeft = true;
         }
         else
         {
@@ -34,49 +47,132 @@ public class InputManager : MonoBehaviour {
             left = "left";
             right = "right";
             down = "down";
+            facingLeft = false;
         }
+        //bools
+        isJump = false;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (playerOne)
+       
+
+
+
+        if (isGrounded)
         {
-            up = "w";
-            left = "a";
-            right = "d";
-            down = "s";
-        }
-        else
-        {
-            up = "up";
-            left = "left";
-            right = "right";
-            down = "down";
+            jumpFramesLeft = jumpFrames;
+            jumpsLeft = numJumps;
         }
         //Getting basic movement input
         if (Input.GetKey(left))
+        {
             acceleration.x -= 1;
-		if(Input.GetKey(right))
+            facingLeft = true;
+        }
+        if (Input.GetKey(right))
+        {
             acceleration.x += 1;
+            facingLeft = false;
+        }
+
+
+        if (Input.GetKeyDown(up))
+        {            
+            if(isGrounded)
+            {
+                isGrounded = false;
+                position.y += 0.01f;
+                isJump = true;
+                jumpsLeft--;
+            }
+            else if (jumpsLeft > 0)
+            {
+                jumpsLeft--;
+                //JUMP HERE
+                velocity.y *=0f;
+                velocity.x *= 0.3f;
+                isJump = true;
+                jumpFramesLeft = jumpFrames;
+            }
+        }
+
+
+        if (isJump)
+        {
+            if(jumpFramesLeft<=0||!Input.GetKey(up))
+                isJump = false;
+            jumpFramesLeft--;
+            acceleration.y += 2f;
+        }
+
         if (Input.GetKey(down))
-            acceleration.y -= 1;
+        {
+            acceleration.y -= 15f;
+            isJump = false;
+        }
+
         if (!Input.anyKey)
         {
-            acceleration *= 0f;
+            acceleration.x *= 0f;
         }
+
+        
 
         CalcMovement();
     }
 
     void CalcMovement()
     {
+
+        //floor raycast
+        if (facingLeft)
+        {
+            raycastPos = new Vector2(position.x + gameObject.GetComponent<BoxCollider2D>().size.x * 0.5f, position.y - gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
+            Debug.DrawRay(raycastPos, Vector2.left, Color.green, 2f);
+            if (Physics2D.Raycast(raycastPos, Vector2.left, gameObject.GetComponent<BoxCollider2D>().size.x*0.6f))
+            {
+                if (!isJump)
+                    isGrounded = true;
+            }
+            else
+            {
+                if (!isJump)
+                    isGrounded = false;
+            }
+        }
+        else
+        {
+            raycastPos = new Vector2(position.x - gameObject.GetComponent<BoxCollider2D>().size.x * 0.5f, position.y - gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
+            Debug.DrawRay(raycastPos, Vector2.right, Color.green, 2f);
+            if (Physics2D.Raycast(raycastPos, Vector2.right, gameObject.GetComponent<BoxCollider2D>().size.x*0.6f))
+            {
+                if (!isJump)
+                    isGrounded = true;
+            }
+            else
+            {
+                if (!isJump)
+                    isGrounded = false;
+            }
+        }
+
         
-        if (acceleration.magnitude >= maxAccel)
+
+        if (!isGrounded)
+            acceleration.y -= gravity;
+        if (!isJump&&acceleration.magnitude >= maxAccel)
         {
             acceleration.Normalize();
             acceleration*= maxAccel;
         }
+        if(isJump&&acceleration.magnitude >=maxJumpAccel)
+        {
+            acceleration.Normalize();
+            acceleration *= maxJumpAccel;
+        }
+
         if(acceleration.magnitude==0)
         {
             if (velocity.magnitude != 0)
@@ -89,14 +185,36 @@ public class InputManager : MonoBehaviour {
             }
         }
         velocity += acceleration;
-        if (velocity.magnitude >= maxSpeed)
+        if (isGrounded && Mathf.Abs(velocity.y) > 0f)
+            velocity.y *= 0f;
+        if (!isJump&&velocity.magnitude >= maxSpeed)
         {
             velocity.Normalize();
             velocity *= maxSpeed;
+        }
+        if (isJump && velocity.magnitude >= maxJumpSpeed)
+        {
+            velocity.Normalize();
+            velocity *= maxJumpSpeed;
+        }
+        
+
+        if (facingLeft)
+        {
+            raycastPos = new Vector2(position.x - gameObject.GetComponent<BoxCollider2D>().size.x * 0.5f, position.y + gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
+            if (Physics2D.Raycast(raycastPos, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.6f) && velocity.x < 0f)
+                velocity.x *= 0f;
+        }
+        else
+        {
+            raycastPos = new Vector2(position.x + gameObject.GetComponent<BoxCollider2D>().size.x * 0.5f, position.y + gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
+            if (Physics2D.Raycast(raycastPos, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.6f) && velocity.x > 0f)
+                velocity.x *= 0f;
         }
 
         position += velocity;
         transform.position = position;
 
     }
+
 }
