@@ -131,7 +131,7 @@ public class InputManager : MonoBehaviour {
         {
             raycastPos = new Vector2(position.x + gameObject.GetComponent<BoxCollider2D>().size.x * 0.5f, position.y - gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
             Debug.DrawRay(raycastPos, Vector2.left, Color.green, 2f);
-            if (Physics2D.Raycast(raycastPos, Vector2.left, gameObject.GetComponent<BoxCollider2D>().size.x*0.6f))
+            if (Physics2D.Raycast(raycastPos, Vector2.left, gameObject.GetComponent<BoxCollider2D>().size.x*0.9f))
             {
                 if (!isJump)
                     isGrounded = true;
@@ -146,7 +146,7 @@ public class InputManager : MonoBehaviour {
         {
             raycastPos = new Vector2(position.x - gameObject.GetComponent<BoxCollider2D>().size.x * 0.5f, position.y - gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
             Debug.DrawRay(raycastPos, Vector2.right, Color.green, 2f);
-            if (Physics2D.Raycast(raycastPos, Vector2.right, gameObject.GetComponent<BoxCollider2D>().size.x*0.6f))
+            if (Physics2D.Raycast(raycastPos, Vector2.right, gameObject.GetComponent<BoxCollider2D>().size.x*0.9f))
             {
                 if (!isJump)
                     isGrounded = true;
@@ -202,13 +202,13 @@ public class InputManager : MonoBehaviour {
         if (facingLeft)
         {
             raycastPos = new Vector2(position.x - gameObject.GetComponent<BoxCollider2D>().size.x * 0.5f, position.y + gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
-            if (Physics2D.Raycast(raycastPos, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.6f) && velocity.x < 0f)
+            if (Physics2D.Raycast(raycastPos, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.9f) && velocity.x < 0f)
                 velocity.x *= 0f;
         }
         else
         {
             raycastPos = new Vector2(position.x + gameObject.GetComponent<BoxCollider2D>().size.x * 0.5f, position.y + gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
-            if (Physics2D.Raycast(raycastPos, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.6f) && velocity.x > 0f)
+            if (Physics2D.Raycast(raycastPos, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.9f) && velocity.x > 0f)
                 velocity.x *= 0f;
         }
 
