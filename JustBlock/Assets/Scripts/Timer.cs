@@ -9,23 +9,43 @@ public class Timer : MonoBehaviour
     public float timer;
     public GameObject playerOne;
     public GameObject playerTwo;
+    public bool timerOn;
 
 	// Use this for initialization
 	void Start ()
     {
         timerText = gameObject.GetComponent<Text>().text;
         timer = 99f;
-        Debug.Log(timer);
+        timerOn = true;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if(!playerOne.activeSelf && !playerTwo.activeSelf)
+        switch (timerOn)
         {
-            timer -= Time.deltaTime;
-            timerText = timer.ToString("0");
-            gameObject.GetComponent<Text>().text = timerText;
+            case true:
+                ContinueTimer();
+                break;
+            case false:
+                PauseTimer();
+                break;
+            default:
+                break;
         }
-	}
+    }
+
+    public void PauseTimer()
+    {
+        timer += 0;
+        timerText = timer.ToString("0");
+        gameObject.GetComponent<Text>().text = timerText;
+    }
+
+    public void ContinueTimer()
+    {
+        timer -= Time.deltaTime;
+        timerText = timer.ToString("0");
+        gameObject.GetComponent<Text>().text = timerText;
+    }
 }
