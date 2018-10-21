@@ -42,6 +42,7 @@ public class InputManager : MonoBehaviour {
             right = "d";
             down = "s";
             facingLeft = false;
+
         }
         else
         {
