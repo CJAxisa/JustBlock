@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class ButtonManager : MonoBehaviour {
-
 	// Use this for initialization
 	void Start () {
 		
@@ -31,4 +30,23 @@ public class ButtonManager : MonoBehaviour {
     {
         SceneManager.LoadScene("Credits");
     }
+
+    public void UnPause()
+    {
+        gameObject.GetComponent<SceneManagement>().pauseMenu.SetActive(false);
+        gameObject.GetComponent<SceneManagement>().UnFreezePlayerOne();
+    }
+
+    public void Controls()
+    {
+        gameObject.GetComponent<SceneManagement>().controlsMenu.SetActive(true);
+        gameObject.GetComponent<SceneManagement>().pauseMenu.SetActive(false);
+    }
+
+    public void BackToPause()
+    {
+        gameObject.GetComponent<SceneManagement>().controlsMenu.SetActive(false);
+        gameObject.GetComponent<SceneManagement>().pauseMenu.SetActive(true);
+    }
+    
 }
