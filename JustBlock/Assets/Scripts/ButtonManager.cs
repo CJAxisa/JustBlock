@@ -47,6 +47,7 @@ public class ButtonManager : MonoBehaviour {
     {
         gameObject.GetComponent<SceneManagement>().controlsMenu.SetActive(false);
         gameObject.GetComponent<SceneManagement>().pauseMenu.SetActive(true);
+        Debug.Log("Just to save");
     }
     
 }
