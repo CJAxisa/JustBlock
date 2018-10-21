@@ -41,7 +41,8 @@ public class InputManager : MonoBehaviour {
             left = "a";
             right = "d";
             down = "s";
-            facingLeft = true;
+            facingLeft = false;
+
         }
         else
         {
@@ -49,7 +50,7 @@ public class InputManager : MonoBehaviour {
             left = "left";
             right = "right";
             down = "down";
-            facingLeft = false;
+            facingLeft = true;
         }
         //bools
         isJump = false;
