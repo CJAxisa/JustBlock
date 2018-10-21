@@ -15,6 +15,8 @@ public class InputManager : MonoBehaviour {
     public Vector2 velocity;
     public Vector2 position;
     public Vector2 raycastPos;
+    public Vector2 raycastPosTopLeft;
+    public Vector2 raycastPosTopRight;
     public int numJumps;
     public int jumpsLeft;
     public int jumpFrames;
@@ -39,7 +41,8 @@ public class InputManager : MonoBehaviour {
             left = "a";
             right = "d";
             down = "s";
-            facingLeft = true;
+            facingLeft = false;
+
         }
         else
         {
@@ -47,14 +50,20 @@ public class InputManager : MonoBehaviour {
             left = "left";
             right = "right";
             down = "down";
-            facingLeft = false;
+            facingLeft = true;
         }
         //bools
         isJump = false;
-	}
-	
-	// Update is called once per frame
-	void Update ()
+
+        position = transform.position;
+
+        raycastPosTopLeft = new Vector2(position.x - gameObject.GetComponent<BoxCollider2D>().size.x * 0.5f, position.y + gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
+        raycastPosTopRight = new Vector2(position.x + gameObject.GetComponent<BoxCollider2D>().size.x * 0.5f, position.y + gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
+
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
        
 
@@ -201,14 +210,16 @@ public class InputManager : MonoBehaviour {
 
         if (facingLeft)
         {
-            raycastPos = new Vector2(position.x - gameObject.GetComponent<BoxCollider2D>().size.x * 0.5f, position.y + gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
-            if (Physics2D.Raycast(raycastPos, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.9f) && velocity.x < 0f)
+            if (Physics2D.Raycast(raycastPosTopLeft, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.9f) && velocity.x < 0f)
+                velocity.x *= 0f;
+            else if (Physics2D.Raycast(raycastPosTopRight, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.9f) && velocity.x < 0f)
                 velocity.x *= 0f;
         }
         else
         {
-            raycastPos = new Vector2(position.x + gameObject.GetComponent<BoxCollider2D>().size.x * 0.5f, position.y + gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
-            if (Physics2D.Raycast(raycastPos, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.9f) && velocity.x > 0f)
+            if (Physics2D.Raycast(raycastPosTopLeft, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.9f) && velocity.x > 0f)
+                velocity.x *= 0f;
+            else if (Physics2D.Raycast(raycastPosTopRight, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.9f) && velocity.x > 0f)
                 velocity.x *= 0f;
         }
 
