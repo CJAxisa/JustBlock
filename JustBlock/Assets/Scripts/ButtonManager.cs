@@ -18,7 +18,10 @@ public class ButtonManager : MonoBehaviour {
     {
         SceneManager.LoadScene("CJTestScene");
     }
-
+    public void Controls()
+    {
+        SceneManager.LoadScene("HowToPlay");
+    }
     public void EndGame()
     {
         Application.Quit();
