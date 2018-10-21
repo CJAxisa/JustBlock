@@ -8,8 +8,11 @@ public class CollisionManager : MonoBehaviour {
     private GameObject projectile;
 	// Use this for initialization
 	void Start () {
-        IM =gameObject.GetComponent<InputManager>();
-	}
+        if(gameObject.GetComponent<InputManager>()!= null)
+        {
+            IM = gameObject.GetComponent<InputManager>();
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {

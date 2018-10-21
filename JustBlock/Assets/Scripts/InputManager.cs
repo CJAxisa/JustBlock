@@ -27,10 +27,11 @@ public class InputManager : MonoBehaviour {
     public bool isJump;
     public bool isGrounded;
     //control key strings
-    private string up;
-    private string left;
-    private string right;
-    private string down;
+    public string up;
+    public string left;
+    public string right;
+    public string down;
+    public string esc;
 
     // Use this for initialization
     void Start () {
@@ -42,6 +43,7 @@ public class InputManager : MonoBehaviour {
             left = "a";
             right = "d";
             down = "s";
+            esc = "escape";
             facingLeft = false;
 
         }
@@ -51,6 +53,7 @@ public class InputManager : MonoBehaviour {
             left = "left";
             right = "right";
             down = "down";
+            esc = "backspace";
             facingLeft = true;
         }
         //bools
@@ -127,8 +130,7 @@ public class InputManager : MonoBehaviour {
             acceleration.x *= 0f;
         }
 
-        
-
+       
         CalcMovement();
     }
 
