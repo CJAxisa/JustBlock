@@ -24,6 +24,7 @@ public class CollisionManager : MonoBehaviour {
         if(collision.gameObject.tag=="Fireball")
         {
             Fireball.setHit(true);
+            Debug.Log("die or be die");
         }
     }
 }
