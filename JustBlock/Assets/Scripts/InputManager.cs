@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour {
     public bool playerOne;
+    public bool frozen;
     public float maxSpeed;
     public float maxAccel;
     public float maxJumpSpeed;
@@ -40,7 +41,6 @@ public class InputManager : MonoBehaviour {
     public string block;
     public string esc;
 
-    public int health;
 
     // Use this for initialization
     void Start () {
@@ -70,16 +70,11 @@ public class InputManager : MonoBehaviour {
         //bools
         isJump = false;
         position = transform.position;
-        health = 5;
     }
 
     // Update is called once per frame
     void Update ()
     {
-       
-
-
-
         if (isGrounded)
         {
             jumpFramesLeft = jumpFrames;
@@ -218,7 +213,14 @@ public class InputManager : MonoBehaviour {
                 velocity *= 0.9f;
             }
         }
+
+
+        if (frozen)
+            acceleration *= 0f;
+
         velocity += acceleration;
+
+
         if (isGrounded && Mathf.Abs(velocity.y) > 0f)
             velocity.y *= 0f;
         if (!isJump&&velocity.magnitude >= maxSpeed)
@@ -278,6 +280,10 @@ public class InputManager : MonoBehaviour {
             velocity.x *= 0f;
             velocity.y *= 0f;
         }
+
+
+        if (frozen)
+            velocity *= 0f;
         position += velocity;
         transform.position = position;
 

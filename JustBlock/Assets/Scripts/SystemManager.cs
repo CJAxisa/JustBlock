@@ -14,13 +14,24 @@ public class SystemManager : MonoBehaviour
     };
     public static matchStates MS;
     matchStates lastMS;
-    private InputManager IM;
+    private InputManager IM1;
+    private InputManager IM2;
 
     // Use this for initialization
     void Start()
     {
         MS = new matchStates();
-        IM = gameObject.GetComponent<InputManager>();
+        GameObject[] player=GameObject.FindGameObjectsWithTag("Player");
+
+        if(player[0].GetComponent<InputManager>().playerOne)
+            IM1 = player[0].GetComponent<InputManager>();
+        else
+            IM2 = player[0].GetComponent<InputManager>();
+
+        if (player[1].GetComponent<InputManager>().playerOne)
+            IM1 = player[1].GetComponent<InputManager>();
+        else
+            IM2 = player[1].GetComponent<InputManager>();
     }
 
     // Update is called once per frame
@@ -54,11 +65,14 @@ public class SystemManager : MonoBehaviour
     void freezePlayers()
     {
         ///gameObject;
+        IM1.frozen = true;
+        IM2.frozen = true;
     }
 
     void unfreezePlayers()
     {
-
+        IM1.frozen = false;
+        IM2.frozen = false;
     }
     public static matchStates getMatchStates()
     {

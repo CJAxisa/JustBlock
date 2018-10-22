@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Fireball : MonoBehaviour {
     public static bool fromPlayerOne;
-    public static bool hit; 
+    public static bool hit;
+    public static bool blocked;
     public static float timeLimit;
     public float timeLeft;
 
@@ -43,6 +44,12 @@ public class Fireball : MonoBehaviour {
     public static bool getHit()
     {
         return hit;
+    }
+
+    
+    public void getBlocked()
+    {
+
     }
     public static void Destroy()
     {
