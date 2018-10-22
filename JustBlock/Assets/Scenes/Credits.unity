@@ -226,7 +226,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: -41}
+  m_AnchoredPosition: {x: 5, y: -36}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &227505890
@@ -262,6 +262,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 0.25
   m_Text: 'Developers
+
 
 
 
@@ -742,7 +743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -74}
+  m_AnchoredPosition: {x: 0, y: -56}
   m_SizeDelta: {x: 800, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1775651135
@@ -788,10 +789,7 @@ MonoBehaviour:
 
 
 
-    DirtyJewbs 8-bit Loop
-
-
-    zin trancepulse'
+    DirtyJewbs 8-bit Loop'
 --- !u!222 &1775651136
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -825,7 +823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce072ca157b866b469d8bc8a17c2d408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlaying: 0
 --- !u!4 &1948872252
 Transform:
   m_ObjectHideFlags: 0
