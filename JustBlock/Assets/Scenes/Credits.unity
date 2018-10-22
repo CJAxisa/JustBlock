@@ -154,7 +154,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.8235294, g: 0.8509804, b: 0.8901961, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -219,15 +219,15 @@ RectTransform:
   m_GameObject: {fileID: 227505888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1144894, y: 1.1144897, z: 1.1144897}
   m_Children: []
   m_Father: {fileID: 1176473131}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: -1}
-  m_SizeDelta: {x: 300, y: 200}
+  m_AnchoredPosition: {x: 5, y: -41}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &227505890
 MonoBehaviour:
@@ -260,8 +260,26 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Developers
+    m_LineSpacing: 0.25
+  m_Text: 'Developers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Music'
 --- !u!222 &227505891
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -376,7 +394,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 373, y: -179}
+  m_AnchoredPosition: {x: 378, y: -203}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1154865414
@@ -586,7 +604,7 @@ RectTransform:
   m_GameObject: {fileID: 1454486147}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6595593, y: 0.6595592, z: 0.6595592}
+  m_LocalScale: {x: 0.78760755, y: 0.7876075, z: 0.7876075}
   m_Children:
   - {fileID: 1775651134}
   m_Father: {fileID: 1176473131}
@@ -724,7 +742,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -34}
+  m_AnchoredPosition: {x: 0, y: -74}
   m_SizeDelta: {x: 800, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1775651135
@@ -758,14 +776,22 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 0.75
   m_Text: 'Christian Axisa
 
 
     Sean Koh
 
 
-    Anthony Pichardo'
+    Anthony Pichardo
+
+
+
+
+    DirtyJewbs 8-bit Loop
+
+
+    zin trancepulse'
 --- !u!222 &1775651136
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -799,6 +825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce072ca157b866b469d8bc8a17c2d408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlaying: 0
 --- !u!4 &1948872252
 Transform:
   m_ObjectHideFlags: 0
