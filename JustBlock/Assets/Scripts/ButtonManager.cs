@@ -40,7 +40,7 @@ public class ButtonManager : MonoBehaviour {
         gameObject.GetComponent<SceneManagement>().UnFreezePlayerOne();
     }
 
-    public void Controls()
+    public void ControlsMenu()
     {
         gameObject.GetComponent<SceneManagement>().controlsMenu.SetActive(true);
         gameObject.GetComponent<SceneManagement>().pauseMenu.SetActive(false);
