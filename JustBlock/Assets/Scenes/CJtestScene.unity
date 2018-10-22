@@ -5117,6 +5117,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114224689276062810, guid: 2d2b2d8cf5cec0e40ba8d4dec0de1145,
+        type: 2}
+      propertyPath: maxJumpAccel
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114224689276062810, guid: 2d2b2d8cf5cec0e40ba8d4dec0de1145,
+        type: 2}
+      propertyPath: jumpFrames
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114224689276062810, guid: 2d2b2d8cf5cec0e40ba8d4dec0de1145,
+        type: 2}
+      propertyPath: blockFrames
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114224689276062810, guid: 2d2b2d8cf5cec0e40ba8d4dec0de1145,
+        type: 2}
+      propertyPath: blockLagFrames
+      value: 45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d2b2d8cf5cec0e40ba8d4dec0de1145, type: 2}
   m_IsPrefabParent: 0

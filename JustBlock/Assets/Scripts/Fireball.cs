@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fireball : MonoBehaviour {
     public static bool fromPlayerOne;
-    public static bool hit;
+    public static bool hit; 
     public static float timeLimit;
     public float timeLeft;
 
@@ -35,9 +35,22 @@ public class Fireball : MonoBehaviour {
         transform.position = position;
     }
 
+    public static void setHit(bool val)
+    {
+        hit = val;
+    }
+
+    public static bool getHit()
+    {
+        return hit;
+    }
     public static void Destroy()
     {
+        
+        
+        
         //destroy
+
     }
 
     public void bounceX()
@@ -79,5 +92,10 @@ public class Fireball : MonoBehaviour {
         {
             //
         }
+    }
+
+    public static Fireball getFireball()
+    {
+        return GameObject.FindGameObjectWithTag("Fireball").GetComponent<Fireball>();
     }
 }

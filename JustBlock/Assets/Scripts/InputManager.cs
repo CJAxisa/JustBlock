@@ -22,16 +22,25 @@ public class InputManager : MonoBehaviour {
     public int jumpsLeft;
     public int jumpFrames;
     public int jumpFramesLeft;
+    public int blockFrames;
+    public int blockFramesLeft;
+    public int blockLagFrames;
+    public int blockLagLeft;
 
     public bool facingLeft;
     public bool isJump;
     public bool isGrounded;
+    public bool isBlocking;
+
     //control key strings
     public string up;
     public string left;
     public string right;
     public string down;
+    public string block;
     public string esc;
+
+    public int health;
 
     // Use this for initialization
     void Start () {
@@ -43,6 +52,7 @@ public class InputManager : MonoBehaviour {
             left = "a";
             right = "d";
             down = "s";
+            block = "space";
             esc = "escape";
             facingLeft = false;
 
@@ -53,16 +63,14 @@ public class InputManager : MonoBehaviour {
             left = "left";
             right = "right";
             down = "down";
+            block = "/";
             esc = "backspace";
             facingLeft = true;
         }
         //bools
         isJump = false;
-
         position = transform.position;
-
-        
-
+        health = 5;
     }
 
     // Update is called once per frame
@@ -89,6 +97,14 @@ public class InputManager : MonoBehaviour {
             facingLeft = false;
         }
 
+        if(Input.GetKeyDown(block)&&!isBlocking&&blockLagLeft<=0)
+        {
+            isBlocking = true;
+            blockFramesLeft = blockFrames;
+        }
+
+        if (blockLagLeft > 0)
+            blockLagLeft--;
 
         if (Input.GetKeyDown(up))
         {            
@@ -116,18 +132,25 @@ public class InputManager : MonoBehaviour {
             if(jumpFramesLeft<=0||!Input.GetKey(up))
                 isJump = false;
             jumpFramesLeft--;
-            acceleration.y += 2f;
+            acceleration.y += 3f;
         }
 
         if (Input.GetKey(down))
         {
-            acceleration.y -= 15f;
+            if(!isGrounded)
+                acceleration.y -= 15f;
+            else
+            {
+               velocity.x *= 0.1f;
+                acceleration.x *= 0f;
+            }
             isJump = false;
         }
 
         if (!Input.anyKey)
         {
             acceleration.x *= 0f;
+            velocity.x *= 0.7f;
         }
 
        
@@ -213,21 +236,48 @@ public class InputManager : MonoBehaviour {
         raycastPosTopRight = new Vector2(position.x + gameObject.GetComponent<BoxCollider2D>().size.x * 0.5f, position.y + gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
         raycastPosTopMid = new Vector2(position.x, position.y + gameObject.GetComponent<BoxCollider2D>().size.y * 0.5f);
 
+        Debug.DrawLine(raycastPosTopLeft, new Vector2(raycastPosTopLeft.x,raycastPosTopLeft.y - gameObject.GetComponent<BoxCollider2D>().size.y ), Color.red);
+        Debug.DrawLine(raycastPosTopMid, new Vector2(raycastPosTopMid.x,raycastPosTopMid.y - gameObject.GetComponent<BoxCollider2D>().size.y*0.3f), Color.red);
+        Debug.DrawLine(raycastPosTopRight, new Vector2(raycastPosTopRight.x,raycastPosTopRight.y - gameObject.GetComponent<BoxCollider2D>().size.y*0.3f), Color.red);
+
         if (facingLeft)
         {
-            if (Physics2D.Raycast(raycastPosTopLeft, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.9f) && velocity.x < 0f)
+            if (Physics2D.Raycast(raycastPosTopLeft, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.7f))
+            {
                 velocity.x *= 0f;
-            else if (Physics2D.Raycast(raycastPosTopMid, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.9f) && velocity.x > 0f)
+                position.x += 0.01f;
+            }
+            else if (Physics2D.Raycast(raycastPosTopRight, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.7f))
+            {
                 velocity.x *= 0f;
+                position.x -= 0.01f;
+            }
         }
         else
         {
-            if (Physics2D.Raycast(raycastPosTopMid, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.9f) && velocity.x > 0f)
+            if (Physics2D.Raycast(raycastPosTopRight, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.7f))
+            {
                 velocity.x *= 0f;
-            else if (Physics2D.Raycast(raycastPosTopRight, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.9f) && velocity.x < 0f)
+                position.x -= 0.01f;
+            }
+            else if (Physics2D.Raycast(raycastPosTopLeft, Vector2.down, gameObject.GetComponent<BoxCollider2D>().size.y * 0.7f) )
+            {
                 velocity.x *= 0f;
+                position.x += 0.01f;
+            }
         }
 
+        if (isBlocking)
+        {
+            if (blockFramesLeft <= 0)
+            {
+                isBlocking = false;
+                blockLagLeft = blockLagFrames;
+            }
+            blockFramesLeft--;
+            velocity.x *= 0f;
+            velocity.y *= 0f;
+        }
         position += velocity;
         transform.position = position;
 
